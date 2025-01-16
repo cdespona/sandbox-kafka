@@ -1,0 +1,4 @@
+
+    \${Ansi.RED} :: application     :: \${spring.application.name}
+    \${Ansi.BLUE} :: version         :: \${spring.application.version}
+    \${Ansi.GREEN} :: Active profiles :: \${spring.profiles.active}

@@ -1,0 +1,23 @@
+{
+  "fields": [
+    {
+      "name": "userid",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "pageviews",
+      "type": [
+        "null",
+        {
+          "type": "map",
+          "values": "string"
+        }
+      ],
+      "default": null
+    }
+  ],
+  "name": "NullableUserPageViewsProduct",
+  "namespace": "io.carles.kafkastream",
+  "type": "record"
+}

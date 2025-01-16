@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+    <springProperty scope="context" name="springAppVersion" source="spring.application.version"/>
+    <property name="APP_NAME" value="kafka-stream"/>
+
+    <!-- console appender -->
+    <appender name="HUMAN-READABLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>
+                %yellow(%d{yyyy/MM/dd HH:mm:ss.SSS}) %cyan([\${APP_NAME:-},%X{dd.trace_id:-},%X{dd.span_id:-}]) %highlight(%-5level) - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+
+    <appender name="JSON-FORMAT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <pattern>
+                    <pattern>
+                    {
+                        "timestamp": "%date{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}",
+                        "level": "%-5level",
+                        "dd": {
+                            "trace_id": "%X{dd.trace_id}",
+                            "span_id": "%X{dd.span_id}"
+                        },
+                        "fields": {
+                            "application": "\${APP_NAME:-}",
+                            "version": "\${springAppVersion:-}"
+                        },
+                        "message": "%msg",
+                        "exception":"%.-10240ex"
+                    }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <springProfile name="!dev">
+        <root level="INFO">
+            <appender-ref ref="JSON-FORMAT"/>
+        </root>
+
+        <logger name="io.carles" additivity="false" level="ALL">
+            <appender-ref ref="JSON-FORMAT"/>
+        </logger>
+    </springProfile>
+
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="HUMAN-READABLE"/>
+        </root>
+
+        <logger name="io.carles" additivity="false" level="ALL">
+            <appender-ref ref="HUMAN-READABLE"/>
+        </logger>
+    </springProfile>
+
+</configuration>

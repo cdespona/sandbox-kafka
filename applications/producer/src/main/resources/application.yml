@@ -1,0 +1,31 @@
+spring:
+  main:
+    banner-mode: off
+  profiles.active: dev
+  application:
+    name: ${name}
+    version: ${version}
+  kafka:
+    bootstrap-servers: \${KAFKA_CLUSTER_ENDPOINT:}
+    topic: user_names
+  schema-registry:
+    url: \${SCHEMA_REGISTRY_ENDPOINT:}
+
+server:
+  port: 8080
+
+---
+spring:
+  main:
+    banner-mode: console
+  config.activate.on-profile: dev
+
+---
+spring:
+  main:
+    banner-mode: console
+  config.activate.on-profile: test
+  kafka:
+    topic: test
+  schema-registry:
+    url: mock://url

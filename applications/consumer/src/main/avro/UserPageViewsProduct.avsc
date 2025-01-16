@@ -1,0 +1,29 @@
+{
+  "fields": [
+    {
+      "name": "userid",
+      "type": {
+        "avro.java.string": "String",
+        "type": "string"
+      }
+    },
+    {
+      "default": null,
+      "name": "pageviews",
+      "type": [
+        "null",
+        {
+          "avro.java.string": "String",
+          "type": "map",
+          "values": {
+            "avro.java.string": "String",
+            "type": "string"
+          }
+        }
+      ]
+    }
+  ],
+  "name": "UserPageViewsProduct",
+  "namespace": "io.carles.kafkastream",
+  "type": "record"
+}

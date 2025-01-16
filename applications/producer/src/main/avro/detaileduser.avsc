@@ -1,0 +1,23 @@
+{
+  "fields": [
+    {
+      "name": "userid",
+      "type": "string"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "surname",
+      "type": "string"
+    },
+    {
+      "name": "document",
+      "type": "string"
+    }
+  ],
+  "name": "DetailedUser",
+  "namespace": "io.carles.kafkaproducer",
+  "type": "record"
+}

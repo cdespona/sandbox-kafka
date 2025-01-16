@@ -1,0 +1,43 @@
+spring:
+  main:
+    banner-mode: off
+  profiles.active: dev
+  application:
+    name: ${name}
+    version: ${version}
+  kafka:
+    bootstrap-servers: \${KAFKA_CLUSTER_ENDPOINT:}
+    schema-registry:
+      url: \${SCHEMA_REGISTRY_ENDPOINT:}
+
+server:
+  port: 8080
+
+application:
+  userpageviews:
+    consumer-group:
+      prefix: ${name}
+      iteration: 1
+    topics:
+      input:
+        userpageviews: "user_pageviews"
+---
+spring:
+  main:
+    banner-mode: console
+  config.activate.on-profile: dev
+
+---
+spring:
+  main:
+    banner-mode: console
+  config.activate.on-profile: test
+  kafka:
+    schema-registry:
+      url: mock://url
+
+application:
+  userpageviews:
+    topics:
+      input:
+        userpageviews: "test"
