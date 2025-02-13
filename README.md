@@ -1,4 +1,4 @@
-# Ssandbox kafka
+# Sandbox kafka
 
 ## Responsibility
 Project to play with Kafka and to learn by doing
